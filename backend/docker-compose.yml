@@ -1,0 +1,10 @@
+services:
+  postgres:
+    image: "bitnami/postgresql:latest"
+    container_name: pg_findAFriend
+    environment:
+      POSTGRES_USER: docker
+      POSTGRES_PASSWORD: docker
+      POSTGRES_DB: findAFriend
+    ports:
+      - "5433:5433"
