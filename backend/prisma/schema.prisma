@@ -13,3 +13,66 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+enum Age {
+  FILHOTE
+  ADULTO
+  IDOSO
+}
+
+enum Size {
+  PEQUENO
+  MEDIO
+  GRANDE
+}
+
+enum EnergyLevel {
+  BAIXO
+  MEDIO
+  ALTO
+}
+
+enum DependencyLevel {
+  BAIXO
+  MEDIO
+  ALTO
+}
+
+enum Environment {
+  AMPLO
+  PEQUENO
+  INTERNO
+  EXTERNO
+}
+
+model Org {
+  id       String @id @default(uuid())
+  name     String
+  email    String @unique
+  whatsapp String
+  password String
+
+  cep     String
+  address String
+  pets    Pet[]
+
+  @@map("orgs")
+}
+
+model Pet {
+  id               String          @id @default(uuid())
+  name             String
+  about            String
+  age              Age
+  size             Size
+  energy_level     EnergyLevel
+  dependency_level DependencyLevel
+  environment      Environment
+  photos           String[]
+  requirements     String[]
+
+  org    Org    @relation(fields: [org_id], references: [id])
+  org_id String
+
+  @@map("pets")
+}
